@@ -1,18 +1,26 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <top /> -->
+    <!-- <Nav />
+    <Content />
+    <Footer /> -->
+    {{ $route.path }}
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+// import Top from '../components/header/Top'
+// import Nav from '../components/header/Nav'
+// import Content from '../components/Content'
+// import Footer from '../components/Footer'
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    // Top,
+    // Nav,
+    // Content,
+    // Footer
   }
 }
 </script>
