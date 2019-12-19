@@ -43,7 +43,6 @@ export default {
   directives: { // 指令是一个方法，指令有自己的生命周期，具体请看指令相关文档
     clickOutside: {
       inserted (el, bindings, vnode) { // el：挂载的真实dom元素
-        console.log(bindings)
         document.addEventListener('click', function (e) { // 事件源
           if (e.target === el || el.contains(e.target)) {
             return

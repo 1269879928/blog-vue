@@ -98,7 +98,7 @@ export default {
           // 显示加载中
           this.loading = true
           this.loadMore('scroll')
-          console.log('滚动到底部，触发数据交互')
+          // console.log('滚动到底部，触发数据交互')
         }
       }
     },
@@ -110,13 +110,11 @@ export default {
       const path = this.$route.fullPath.substr(1)
       const name = this.$route.name
       if (name === '首页') {
-        // console.log('首页')
         this.getArticlesOfCate()
         return true
       }
       if (path && /^[0-9]+$/.test(path)) { // 获取导航栏的文章
         this.id = path
-        // console.log('cate')
         this.getArticlesOfCate()
         return true
       }

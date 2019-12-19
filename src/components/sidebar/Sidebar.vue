@@ -8,7 +8,9 @@
       <!-- 最新评论 -->
       <comment v-if="$route.name !== 'detail'"></comment>
       <archive :archive="archive"></archive>
-      <toc :tocHtml="tocHtml" v-if="$route.name === 'detail'"></toc>
+      <a-affix :offsetTop="20" ref="affix" id="affix">
+        <toc v-bind="$attrs" v-if="$route.name === 'detail'"></toc>
+      </a-affix>
     </div>
   </div>
 </template>
@@ -22,11 +24,15 @@ import Toc from './Toc.vue'
 import Archive from './Archive.vue'
 export default {
   name: 'sidebar',
-  props: {
-    tocHtml: {
-      type: String
-    }
-  },
+  inheritAttrs: false,
+  // props: {
+  //   tocHtml: {
+  //     type: String
+  //   },
+  //   tocActive: {
+  //     type: String
+  //   }
+  // },
   components: {
     Tags,
     TopArticles,

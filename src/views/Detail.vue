@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container mt-3 pt-3">
     <div class="row">
       <div class="col-12 col-sm-9 pl-0 bt-content">
         <div class="home">
@@ -63,7 +63,7 @@
           <div ref="shade" id="shade" class="shade"></div>
         </div>
       </div>
-      <Sidebar :tocHtml="tocHtml"></Sidebar>
+      <Sidebar :tocHtml="tocHtml" :tocActive="tocActive"></Sidebar>
     </div>
   </div>
 </template>
@@ -149,37 +149,71 @@ export default {
       },
       sLoading: true, // 显示骨架
       tocHtml: '',
+      tocArray: [],
+      tocArr: [],
       id: 0,
-      imgClickFlag: false
+      imgClickFlag: false,
+      tocActive: '' // 滚动式激活的目录
     }
   },
   watch: {
-    '$route': 'getId'
+    '$route': 'getId',
+    tocArray (newTocArr) {
+      const arr = []
+      newTocArr.forEach(item => {
+        arr.push(item.anchor)
+      })
+      this.scrollToc(arr)
+    }
   },
   created () {
     this.getId()
   },
   mounted () {
-    // this.$nextTick(() => {
-    //   const blocks = document.querySelectorAll('figure')
-    //   console.log(212, blocks)
-    //   blocks.forEach((block) => {
-    //     console.log(123, block)
-    //   })
-    // })
   },
   computed: {
     compiledMarkdown () {
       return md.render(this.article.content)
     }
   },
+  beforeDestroy () {
+    // 销毁监听的滚动事件
+    document.removeEventListener('scroll', this.handleScrollToc)
+  },
   methods: {
+    // 监听滚动条 ，目录随着滚动条的变化而变化
+    scrollToc (tocArr) {
+      const tocLength = tocArr.length
+      if (tocLength <= 0) {
+        return
+      }
+      this.tocArr = tocArr
+      document.addEventListener('scroll', this.handleScrollToc)
+    },
+    handleScrollToc () {
+      const tocArr = this.tocArr
+      const tocLength = tocArr.length
+      for (let index = 0; index < tocLength; index++) {
+        const item = tocArr[index]
+        const dom = document.querySelector('#' + item)
+        // console.log('dom', dom, item)
+        if (dom) {
+          const currItemOffsetTop = this.getRect(dom).top
+          if (currItemOffsetTop <= 2) {
+            this.tocActive = item
+            // console.log('active:', item, currItemOffsetTop)
+          }
+        }
+      }
+    },
     getId () {
       const id = this.$route.query.id
       // 如果url是锚点，停止往下执行
       const hash = this.$route.hash
       if (hash) {
         return
+      } else { // 不是锚点 销毁监听的滚动事件
+        document.removeEventListener('scroll', this.handleScrollToc)
       }
       if (parseInt(id) > 0 && /^[0-9]+$/.test(id)) {
         this.id = id
@@ -196,10 +230,9 @@ export default {
           document.title = `${article.title} - SHIJTING`
           md.set({
             tocCallback: (tocMarkdown, tocArray, tocHtml) => {
-              console.log(tocHtml)
               const filter = tocHtml.replace(/\*<br\s+\/>/g, '')
-              console.log(filter)
               this.tocHtml = filter.replace(/\*/g, '')
+              this.tocArray = tocArray
             }
           })
           this.article = article
@@ -215,9 +248,9 @@ export default {
       var clientLeft = document.documentElement.clientLeft
       return { // 兼容ie多出的两个px
         top: rect.top - clientTop, // 距离顶部的位置
-        bottom: rect.bottom - clientTop, // 距离顶部加上元素本身的高度就等于bottom的位置
-        left: rect.left - clientLeft, // 距离左边的位置
-        right: rect.right - clientLeft // 距离右边的位置就是 距离左边的位置加上元素本身的宽度
+        // bottom: rect.bottom - clientTop, // 距离顶部加上元素本身的高度就等于bottom的位置
+        left: rect.left - clientLeft // 距离左边的位置
+        // right: rect.right - clientLeft // 距离右边的位置就是 距离左边的位置加上元素本身的宽度
       }
     },
     imgClick (e) {

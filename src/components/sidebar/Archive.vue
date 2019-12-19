@@ -39,10 +39,8 @@ export default {
     // eslint-disable-next-line vue/return-in-computed-property
     down () {
       if (this.archive.length > 3 && !this.advanced) {
-        console.log('down true')
         return true
       }
-      console.log('down false')
       return false
     }
   },

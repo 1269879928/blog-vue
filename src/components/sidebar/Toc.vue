@@ -9,9 +9,14 @@
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
   props: {
     tocHtml: {
+      type: String,
+      required: true
+    },
+    tocActive: {
       type: String,
       required: true
     }
@@ -21,17 +26,34 @@ export default {
       top: 10
     }
   },
+  watch: {
+    tocActive (n) {
+      // console.log('active', n)
+      const href = '#' + n
+      const dom = $("a[href='" + encodeURI(href) + "']")
+      dom.removeClass('toc-active')
+      dom.parent().parent().parent().find('a').removeClass('toc-active')
+      dom.prevAll('a').removeClass('toc-active')
+      dom.parent().parent().parent().siblings('li').find('a').removeClass('toc-active')
+      dom.addClass('toc-active')
+    }
+  },
   mounted () {
-    console.log('tocHtml', this.tocHtml)
-    // const affix = this.$refs.affix
-    // console.log('affix', affix)
+    // this.$nextTick(() => {
+    // })
+  },
+  methods: {
   }
 }
 </script>
 
 <style lang="less">
 .toc {
+  .toc-active {
+    background: #eee;
+  }
   a {
+    transition: all .5s;
     color: #636B6F;
   }
   .markdownIt-TOC {
@@ -44,14 +66,18 @@ export default {
       ul {
         padding-left: 5px;
         li {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          text-indent: 2px;
-          padding: 2px;
-        }
-        li:hover {
-          background: #eee;
+          margin: 1px 0 0 -5px;
+          a {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-indent: 2px;
+            padding: 2px 2px 2px 8px;
+          }
+          a:hover {
+            background: #eee;
+          }
         }
       }
       a {
