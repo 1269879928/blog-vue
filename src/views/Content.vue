@@ -1,6 +1,11 @@
 <template>
   <div class="home"  style="overflow:auto" ref="scrollList">
-      <template v-if="!articles.length">
+      <template v-if="sLoading">
+        <div class="bg-content shadow-sm border-gray border rounded mb-3 content index-content" v-for="(s,i) in skeleton" :key="i">
+         <a-skeleton active avatar :paragraph="{rows: 3}" />
+        </div>
+      </template>
+      <template v-else-if="!articles.length">
         <div class="bg-content shadow-sm border-gray border rounded mb-3 content">暂无数据</div>
       </template>
       <template v-else>
@@ -37,7 +42,7 @@
 
 <script>
 import debounce from 'lodash/debounce'
-import { articles, getAritcleWithTagId } from '../api/index'
+import { articles, getAritcleWithTagId, getAritcleWithArchiveId } from '../api/index'
 export default {
   components: {
   },
@@ -46,12 +51,14 @@ export default {
     return {
       articles: [
       ],
+      skeleton: [0, 1, 2, 3],
+      sLoading: true, // 显示骨架
       id: 0,
       loading: false,
       disabled: false, // 是否全部加载完成(为true时显示 没有更多了)
       i: 0,
       pageNo: 1, // 当前页
-      pageSize: 6 // 每页显示记录数
+      pageSize: 8 // 每页显示记录数
     }
   },
   watch: {
@@ -90,28 +97,46 @@ export default {
         if (!this.loading && !this.disabled) { // 防止反复出现请求接口(必须在本次请求结束后才能进行下次请求)
           // 显示加载中
           this.loading = true
-          this.loadMore()
+          this.loadMore('scroll')
           console.log('滚动到底部，触发数据交互')
         }
       }
     },
-    fetchDate () {
+    fetchDate (type) {
+      if (type !== 'scroll') {
+        this.sLoading = true
+      }
       this.id = 0
       const path = this.$route.fullPath.substr(1)
+      const name = this.$route.name
+      if (name === '首页') {
+        // console.log('首页')
+        this.getArticlesOfCate()
+        return true
+      }
       if (path && /^[0-9]+$/.test(path)) { // 获取导航栏的文章
         this.id = path
+        // console.log('cate')
+        this.getArticlesOfCate()
+        return true
       }
-      if (/^tag\?id=[0-9]+$/.test(path)) { // 获取tag标签的文章
+      if (name === 'tag' && /^tag\?id=[0-9]+$/.test(path)) { // 获取tag标签的文章
         this.articlesOfTag(this.$route.query.id)
         return true
       }
-      this.getArticlesOfCate()
-      // this.$router.push({ name: 'exception404' })
+      const archive = this.$route.query.archive
+      if (name === 'archive' && archive.length === 6) { // 获取文章归档的文章
+        console.log('archive')
+        this.aritclesOfArchive(archive)
+        return true
+      }
+      // this.getArticlesOfCate()
+      this.$router.push({ name: 'exception404' })
     },
     getArticlesOfCate () {
       articles({ id: this.id, pageNo: this.pageNo, pageSize: this.pageSize }).then(res => {
         this.articles = this.articles.concat(res.data.articles)
-
+        this.sLoading = false
         // 内容区域的显示/隐藏动画切换
         // setTimeout(() => {
         //   this.$store.commit({
@@ -146,8 +171,6 @@ export default {
           const articles = res.data.articles
           document.title = `${articles[0].category_name} - SHIJTING`
           this.articles = this.articles.concat(articles)
-
-          console.log('?tag?', this.pageNo, res.data.totalPage)
           if (this.pageNo >= parseInt(res.data.totalPage)) { // 全部数据加载完毕，显示 没有更多了
             this.disabled = true
           }
@@ -155,9 +178,32 @@ export default {
         } else {
           this.articles = []
         }
+        this.sLoading = false
       }).catch(err => {
         this.loading = false
         console.log('get articles of tag error', err)
+      })
+    },
+    aritclesOfArchive (id) {
+      this.loading = false
+      getAritcleWithArchiveId({ id: id, pageNo: this.pageNo, pageSize: this.pageSize }).then(res => {
+        if (res.status === 0) {
+          const articles = res.data.articles
+          document.title = `2019年11月 - SHIJTING`
+          this.articles = this.articles.concat(articles)
+          console.log('?archive?', this.pageNo, res.data.totalPage)
+          if (this.pageNo >= parseInt(res.data.totalPage)) { // 全部数据加载完毕，显示 没有更多了
+            this.disabled = true
+          }
+          this.pageNo++ // 当前页+1
+        } else {
+          this.articles = []
+        }
+        this.sLoading = false
+      // eslint-disable-next-line handle-callback-err
+      }).catch(err => {
+        this.loading = false
+        console.log('get articles of archive error', err)
       })
     },
     // 跳转到详情页
@@ -318,6 +364,7 @@ export default {
     display: flex;
     justify-content: center;
     p {
+      color: #636b6f;
       text-align: center;
     }
   }

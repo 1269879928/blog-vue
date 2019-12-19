@@ -19,20 +19,25 @@ let routes = [
             isNav: true,
             component: () => import(/* webpackChunkName: "index" */ '../views/Content.vue'),
             meta: {
-              title: '首页 - SHIJTING'
+              title: '首页 - SHIJTING的个人博客'
             }
-          },
-          {
-            path: '/detail',
-            name: 'detail',
-            component: () => import(/* webpackChunkName: "detail" */ '../views/Detail')
           },
           {
             path: '/tag',
             name: 'tag',
-            component: () => import(/* webpackChunkName: "tag" */ '../views/Content.vue')
+            component: () => import(/* webpackChunkName: "index" */ '../views/Content.vue')
+          },
+          {
+            path: '/archive',
+            name: 'archive',
+            component: () => import(/* webpackChunkName: "index" */ '../views/Content.vue')
           }
         ]
+      },
+      {
+        path: '/detail',
+        name: 'detail',
+        component: () => import(/* webpackChunkName: "detail" */ '../views/Detail')
       }
     ]
   },

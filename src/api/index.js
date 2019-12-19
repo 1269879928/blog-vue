@@ -20,3 +20,10 @@ export function getAritcleWithTagId (parameter) {
     data: parameter
   })
 }
+export function getAritcleWithArchiveId (parameter) {
+  return axios({
+    url: `/index/archive/${parameter.id}?pageNo=${parameter.pageNo}&pageSize=${parameter.pageSize}`,
+    method: 'get',
+    data: parameter
+  })
+}

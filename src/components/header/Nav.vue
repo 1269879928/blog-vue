@@ -1,5 +1,5 @@
 <template>
-  <main class="shadow-sm bg-content">
+  <main class="bg-content">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-withe pl-0">
         <!-- <router-link class="navbar-brand" to="/">shijting</router-link> -->
@@ -15,7 +15,7 @@
           </ul>
           <div class="form-inline my-2 my-lg-0 search-box" v-click-outside="close">
             <i class="fa search-icon" :class="{'fa-search': !toggleSearchIcon, 'fa-spinner': toggleSearchIcon, 'fa-spin': toggleSearchIcon}"></i>
-            <input class="form-control" id="search" type="mysearch" placeholder="搜索" v-model="searchText">
+            <input class="form-control" id="search" type="mysearch" placeholder="搜索..." v-model="searchText">
             <div class="search-result" v-show="showSearchRes">
               <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
@@ -120,9 +120,21 @@ export default {
 <style lang="less" scoped>
 // linear-gradient(to right,  #17a2b8, #ddd,  #17a2b8)
 main {
-  border-top: 5px solid #53C1DE;
+  border-top: 4px solid #185886;
   padding: 2px 0;
-  // box-shadow: 10px 2px 10px #17a2b8;
+  border-top-left-radius: .4rem;
+  border-top-right-radius: .4rem;
+  border-bottom-left-radius: .1rem;
+  border-bottom-right-radius: .1rem;
+  box-shadow: 0 2px 10px #ccc;
+  // height: 55px;
+  // position: fixed;
+  // top: 0;
+  // right: 0;
+  // bottom: 0;
+  // left: 0;
+  // margin: 0 auto;
+  // z-index: 2;
 }
 .container {
   padding: 0;
@@ -139,7 +151,7 @@ main {
     }
     .router-link-exact-active {
       // font-weight: bold;
-      color: #53C1DE;
+      // color: #53C1DE;
     }
     .nav-link {
       padding: .5rem 1rem;
@@ -149,7 +161,7 @@ main {
       transition: all .6s;
     }
     .nav-link:hover {
-      color: #17a2b8;
+      // color: #17a2b8;
     }
     .my-navbar-toggler-box {
       display: flex;

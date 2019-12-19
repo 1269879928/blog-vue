@@ -11,6 +11,9 @@ import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
 
 import { Backtop, Icon, Tooltip, Divider } from 'element-ui'
+import { Skeleton, Affix } from 'ant-design-vue'
+Vue.use(Skeleton)
+Vue.use(Affix)
 Vue.use(Backtop)
 Vue.use(Icon)
 Vue.use(Tooltip)

@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-3">
-    <div class="container mt-5">
+  <div class="mt-4">
+    <div class="container pt-2">
       <div class="row">
         <div  class="col-12 col-sm-9 pr-sm-3 home pl-0">
           <router-view></router-view>

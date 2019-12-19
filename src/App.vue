@@ -72,6 +72,43 @@ html {
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
   }
+  // 首页骨架
+  .index-content {
+    .ant-skeleton-header {
+      // display: flex;
+      // flex-direction: row;
+      // align-items: center;
+      span {
+        margin-top: 2.4rem;
+        width: 12.5rem;
+        height: 7.6rem;
+        border-radius: .2rem;
+      }
+    }
+    .ant-skeleton-content {
+      .ant-skeleton-title {
+        width: 130% !important;
+        margin-left: -13.5rem;
+        margin-top: 6px;
+      }
+      .ant-skeleton-paragraph {
+        margin-top: 1rem;
+        margin-left: -2.3rem;
+        text-align: right;
+        li:last-child {
+          margin-left: 14.7rem;
+        }
+      }
+    }
+  }
+  // 详情页骨架
+  .detail-skeleton {
+    .ant-skeleton {
+      .ant-skeleton-paragraph {
+        margin-left: -40px;
+      }
+    }
+  }
 }
 
 </style>

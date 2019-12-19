@@ -1,162 +1,46 @@
 <template>
   <div class="col-sm-3 col-12 side" id="side">
     <div class="col-12 side">
-      <div class="card rounded shadow-sm mb-3 tags">
-        <div class="card-header bg-content">
-          标签云
-          <!-- <hr /> -->
-        </div>
-        <div class="card-body first-card-body">
-          <dl>
-            <dd class="rounded" @click="getArticleWithTagId(tag.id)" v-for="tag in tags" :key="tag.id"  :style="{backgroundColor: colors[randomColor()]}">
-              <!-- <el-tooltip class="item" placement="top" effect="light">
-                <template slot="content">
-                  {{ tag.count }} 个话题
-                </template>
-                <span>
-                  {{ tag.name }}（{{tag.count}}）
-                </span>
-              </el-tooltip> -->
-              {{ tag.name }}（{{tag.count}}）
-            </dd>
-          </dl>
-        </div>
-      </div>
-      <div class="card rounded shadow-sm mb-3">
-        <div class="card-header bg-content">
-          置顶推荐
-        </div>
-        <div class="card-body top">
-          <ul class="list-group list-group-flush">
-            <template>
-              <li class="list-group-item row" v-for="topArticle in topArticles" :key="topArticle.id">
-                <div class="top-left col-4">
-                  <img class="thumbnail" v-if="topArticle.cover" :src="topArticle.cover" alt="">
-                  <img class="thumbnail" v-else src="https://image.twho.top/default.jpg" alt="">
-                </div>
-                <div class="top-right col-8">
-                  <div class="top-title" @click="detail(topArticle.id)">{{ topArticle.title }}</div>
-                  <div class="common-author">
-                    <span><i class="fa fa-clock-o mr-1"></i>{{ topArticle.created_at }}</span>
-                  </div>
-                </div>
-              </li>
-            </template>
-          </ul>
-        </div>
-      </div>
-      <div class="card rounded shadow-sm">
-        <div class="card-header bg-content">
-          最新评论
-        </div>
-        <div class="card-body comment">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item row">
-              <div class="comment-left col-3">
-                <img class="avatar rounded-circle img-thumbnail" src="https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2015/09/wallpaper_5265780-e1454442805684.jpg&h=123&w=200&q=90&zc=1&ct=1" alt="">
-              </div>
-              <div class="comment-right col-9">
-                <div class="comment-title">评论功能开发中开发中开发中开发中</div>
-                <div class="common-author">
-                  <span>lison</span>
-                  <span><i class="fa fa-clock-o mr-1"></i>三天前</span>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item row">
-              <div class="comment-left col-3">
-                <img class="avatar rounded-circle img-thumbnail" src="https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2015/09/wallpaper_5265780-e1454442805684.jpg&h=123&w=200&q=90&zc=1&ct=1" alt="">
-              </div>
-              <div class="comment-right col-9">
-                <div class="comment-title">评论功能开发中开发中开发中开发中</div>
-                <div class="common-author">
-                  <span>lison</span>
-                  <span><i class="fa fa-clock-o mr-1"></i>三天前</span>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item row">
-              <div class="comment-left col-3">
-                <img class="avatar rounded-circle img-thumbnail" src="https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2015/09/wallpaper_5265780-e1454442805684.jpg&h=123&w=200&q=90&zc=1&ct=1" alt="">
-              </div>
-              <div class="comment-right col-9">
-                <div class="comment-title">评论功能开发中开发中开发中开发中</div>
-                <div class="common-author">
-                  <span>lison</span>
-                  <span><i class="fa fa-clock-o mr-1"></i>三天前</span>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item row">
-              <div class="comment-left col-3">
-                <img class="avatar rounded-circle img-thumbnail" src="https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2015/09/wallpaper_5265780-e1454442805684.jpg&h=123&w=200&q=90&zc=1&ct=1" alt="">
-              </div>
-              <div class="comment-right col-9">
-                <div class="comment-title">评论功能开发中开发中开发中开发中</div>
-                <div class="common-author">
-                  <span>lison</span>
-                  <span><i class="fa fa-clock-o mr-1"></i>三天前</span>
-                </div>
-              </div>
-            </li>
-            <li class="list-group-item row">
-              <div class="comment-left col-3">
-                <img class="avatar rounded-circle img-thumbnail" src="https://cuiqingcai.com/wp-content/themes/Yusi/timthumb.php?src=https://qiniu.cuiqingcai.com/wp-content/uploads/2015/09/wallpaper_5265780-e1454442805684.jpg&h=123&w=200&q=90&zc=1&ct=1" alt="">
-              </div>
-              <div class="comment-right col-9">
-                <div class="comment-title">评论功能开发中开发中开发中开发中</div>
-                <div class="common-author">
-                  <span>lison</span>
-                  <span><i class="fa fa-clock-o mr-1"></i>三天前</span>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <!-- tags -->
+      <Tags :data="tags" v-if="$route.name !== 'detail'"></Tags>
+      <!-- 文章推荐 -->
+      <top-articles :data="topArticles"></top-articles>
+      <!-- 最新评论 -->
+      <comment v-if="$route.name !== 'detail'"></comment>
+      <archive :archive="archive"></archive>
+      <toc :tocHtml="tocHtml" v-if="$route.name === 'detail'"></toc>
     </div>
   </div>
 </template>
 
 <script>
 import { side } from '../../api/index'
+import Tags from './Tags'
+import TopArticles from './TopArticles'
+import Comment from './Comment'
+import Toc from './Toc.vue'
+import Archive from './Archive.vue'
 export default {
   name: 'sidebar',
+  props: {
+    tocHtml: {
+      type: String
+    }
+  },
+  components: {
+    Tags,
+    TopArticles,
+    Comment,
+    Toc,
+    Archive
+  },
   data () {
     return {
-      tags: [
-        { name: '深度学习', id: 0 }
-      ],
       topArticles: [
-        { title: '', id: 0 }
+        // { title: '', id: 0 }
       ],
-      colors: [
-        '#1abc9c',
-        '#2ecc71',
-        '#3498db',
-        '#9b59b6',
-        '#34495e',
-        '#f1c40f',
-        '#e67e22',
-        '#e74c3c',
-        '#4caf50',
-        '#9c27b0',
-        '#f1c40f',
-        '#ff9800',
-        '#95a5a6',
-        '#2196f3',
-        '#00bcd4',
-        '#009688',
-        '#f44336',
-        '#58B19F',
-        '#FD7272',
-        '#B33771',
-        '#40407a',
-        '#17a2b8',
-        '#17c0eb',
-        '#f60',
-        '#b37333'
-      ]
+      tags: [],
+      archive: []
     }
   },
   created () {
@@ -165,11 +49,6 @@ export default {
   computed: {
   },
   methods: {
-    randomColor () {
-      const i = Math.floor(Math.random() * this.colors.length)
-      // return this.colors[i]
-      return i
-    },
     fetchDate () {
       side().then(res => {
         if (res.status === 0) {
@@ -181,19 +60,11 @@ export default {
           this.tags = tags
           // 置顶文章
           this.topArticles = res.data.tops
+          this.archive = res.data.archive
         }
       }).catch(err => {
         console.log('err', err)
       })
-    },
-    detail (id) {
-      this.$router.push({ name: 'detail', query: { id: id } })
-    },
-    getArticleWithTagId (tagId) {
-      this.$router.push({ name: 'tag', query: { id: tagId } })
-    },
-    mouseover (colorObj) {
-      console.log(colorObj)
     }
   }
 }
@@ -221,43 +92,45 @@ export default {
       color: #636b6f;
       // border-bottom: 0;
       // box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
     .card-body {
       // border-bottom: 1px solid silver;
       // padding-top: 0;
       padding: 10px 20px !important;
-      dl{
-        width: 100%;
-        margin: 0 !important;
-        // margin-left: -10px !important;
-        // margin-right: -10px !important;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        dd {
-          text-align: left;
-          text-indent: .6rem;
-          width: 50%;
-          line-height: 1.3rem;
-          padding: 0 3px;
-          font-size: 14px;
-          opacity: .7;
-          color: white;
-          background-clip: content-box;
-          -webkit-transition: all .5s;
-          -o-transition: all .5s;
-          transition: all .5s;
-        }
-        dd:hover {
-          cursor: pointer;
-          opacity: 1;
-        }
-        // dd:nth-child(2n) {
-        //   margin-left:10px;
-        //   margin-right:10px;
-        // }
-      }
+      // dl{
+      //   width: 100%;
+      //   margin: 0 !important;
+      //   // margin-left: -10px !important;
+      //   // margin-right: -10px !important;
+      //   display: flex;
+      //   flex-direction: row;
+      //   flex-wrap: wrap;
+      //   justify-content: flex-start;
+      //   dd {
+      //     text-align: left;
+      //     text-indent: .6rem;
+      //     width: 50%;
+      //     line-height: 1.3rem;
+      //     padding: 0 3px;
+      //     font-size: 14px;
+      //     opacity: .7;
+      //     color: white;
+      //     background-clip: content-box;
+      //     -webkit-transition: all .5s;
+      //     -o-transition: all .5s;
+      //     transition: all .5s;
+      //   }
+      //   dd:hover {
+      //     cursor: pointer;
+      //     opacity: 1;
+      //   }
+      //   // dd:nth-child(2n) {
+      //   //   margin-left:10px;
+      //   //   margin-right:10px;
+      //   // }
+      // }
 
     }
     .first-card-body {
@@ -312,6 +185,15 @@ export default {
         }
         li:not(first-child) {
           padding-top: 10px;
+        }
+        .list-group-item {
+          border: none;
+        }
+        .my-list {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+        }
+        .my-list:last-child {
+          border-bottom:none;
         }
       }
     }
@@ -369,29 +251,6 @@ export default {
 @media screen and(max-width: 767px) {
   #side {
     display: none;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  #side {
-      // display: none;
-      .tags {
-        .card-body {
-          dl{
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            // display: flex;
-            // flex-direction: row;
-            // flex-wrap: wrap;
-            // justify-content: flex-start;
-          dd {
-            text-align: left;
-            text-indent: .6rem;
-            width: 100%;
-          }
-        }
-      }
-    }
   }
 }
 </style>
