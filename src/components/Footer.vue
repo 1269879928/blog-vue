@@ -1,16 +1,17 @@
 <template>
-  <div class="container-fluid shadow-sm border-top text-secondary p-3 my-bg mt-4 bg-white">
+  <div class="container-fluid shadow-sm border-top p-3 my-bg mt-4">
     <div class="containe">
       <div class="text-center">
-        Copyright © 2019 SHIJTING的个人站点 桂ICP备17011464号
-        <br />
-        <small class="small text-secondary mt-2">
-          联系邮箱：1269879928@qq.com
-        </small>
-        <br />
-        <small class="small text-secondary mt-2">
+        Copyright © 2019 twho.top All Rights Reserved 桂ICP备17011464号
+        <section class="mt-2">
           采用 <a target="_blank" href="https://www.php.net/"> PHP </a> & <a target="_blank" href="https://cn.vuejs.org/">Vue</a>搭建 | 托管于 <a target="_blank" href="http://aliyun.com/">阿里云</a> & <a target="_blank" href="http://qiniu.com">七牛云存储</a>
-        </small>
+        </section>
+        <section class="mt-2">
+          联系邮箱：1269879928@qq.com
+        </section>
+        <section>
+          <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1278458530&web_id=1278458530"></script>
+        </section>
       </div>
     </div>
   </div>
@@ -24,9 +25,12 @@ export default {
 
 <style lang="less" scoped>
 .my-bg{
-  color: #2e3641;
+  background: #384548;
+  color: #A9B7C6;
+  // color: #FFF;
+  // color: #2e3641;
 }
 a {
-  color: #6c757d;
+  color: #A9B7C6;
 }
 </style>

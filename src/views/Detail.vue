@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3 pt-3">
+  <div class="container my-mt">
     <div class="row">
       <div class="col-12 col-sm-9 pl-0 bt-content">
         <div class="home">
@@ -60,7 +60,7 @@
               </div> -->
             </div>
           </div>
-          <div ref="shade" id="shade" class="shade"></div>
+          <div ref="shade" class="shade"></div>
         </div>
       </div>
       <Sidebar :tocHtml="tocHtml" :tocActive="tocActive"></Sidebar>
@@ -107,9 +107,6 @@ md.use(require('markdown-it-sup'))
 md.use(require('markdown-it-abbr'))
 md.use(require('markdown-it-deflist'))
 md.use(require('markdown-it-task-lists'))
-// md.use(require('markdown-it-toc-done-right'))
-// md.use(require('markdown-it-anchor'), { permalink: true, permalinkBefore: true, permalinkSymbol: '§' })
-// md.use(require('markdown-it-toc-done-right'))
 // md.use(require('slack-markdown-it'))
 // md.use(require('markdown-it-link-attributes'), {
 //   target: '_blank',
@@ -227,7 +224,7 @@ export default {
       detail({ id: id }).then(res => {
         if (res.status === 0) {
           const article = res.data.article
-          document.title = `${article.title} - SHIJTING`
+          document.title = `${article.title} - 码农ACE`
           md.set({
             tocCallback: (tocMarkdown, tocArray, tocHtml) => {
               const filter = tocHtml.replace(/\*<br\s+\/>/g, '')
@@ -259,6 +256,7 @@ export default {
       // 浏览器窗口的宽度 document.documentElement.clientWidth(不包括滚动条的宽度)
       const windowWidth = window.screen.width // 包括滚动条的宽度
       const shade = this.$refs.shade
+      // const shade = document.getElementById('shade')
       if (!this.imgClickFlag) {
         const figure = e.parentNode
         figure.style.height = e.height + 'px'
@@ -268,6 +266,8 @@ export default {
           e.style.zIndex = 999
           // 打开遮罩层
           shade.style.display = 'block'
+          // shade.classList.add('shade-zoom')
+          // console.log('shade block', shade)
           // 解决display 与opacity 一起用会导致transition 过渡失效问题
           setTimeout(() => {
             shade.style.opacity = '0.9'
@@ -326,6 +326,13 @@ export default {
   opacity: 0;
   z-index: 2;
 }
+.shade-zoom {
+  display: block;
+}
+.container {
+  padding-left:0;
+  padding-right:0;
+}
 .box {
   text-align: left;
   padding-bottom: 1.2rem;
@@ -383,10 +390,11 @@ export default {
         font-size: 1.1rem;
       }
       p {
-        text-indent: 2em;
+        margin-bottom: 1rem;
+        // text-indent: 2em;
       }
       blockquote {
-        font-size: 0.9em;
+        font-size: 0.95em;
         border: 1px dashed #dce0e4;
         border-radius: 5px;
         padding: 13px 25px;
@@ -418,10 +426,28 @@ export default {
         tr {
           transition: all .3s;
         }
-        tr:hover {
-          background: #eee;
+        tbody {
+          tr:nth-child(2n) {
+            border-top: 1px solid #c6cbd1;
+            background: #f6f8fa;
+          }
+          // tr:hover {
+          //   background: #f6f8fa;
+          // }
         }
       }
+      // code:not(.hljs code) {
+      //   background: rgba(90,87,87,0);
+      //   margin: 5px;
+      //   color: #858080;
+      //   border-radius: 4px;
+      //   background-color: #f9fafa;
+      //   border: 1px solid #e4e4e4;
+      //   max-width: 740px;
+      //   overflow-x: auto;
+      //   font-size: .95rem;
+      //   padding: 1px 2px;
+      // }
       // 代码高亮修改
       pre {
         // margin-top: 1.5rem !important;
@@ -489,6 +515,10 @@ export default {
   box-shadow: 0 0 50px #222 !important;
 }
 .zoom-in-mobile {
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 .zoom-out {
@@ -500,7 +530,7 @@ export default {
   figure {
     // margin-right: 1rem !important;
     text-align: center;
-    border: 1px solid red;
+    // border: 1px solid red;
     img {
       width: 100%;
       height: auto;
@@ -513,7 +543,7 @@ export default {
     padding-right: 0 !important;
     .box {
       // margin: 0 .9rem;
-      padding: 0 !important;
+      padding: .5rem !important;
       pre {
         margin: 1.5rem .1rem 1.5rem 0 !important;
         padding: .9rem !important;

@@ -60,12 +60,23 @@ html {
   // padding: 0; margin: 0;
   // background: #F3F3EF;
   // background: #EEE;
-  // background: #F0F2F5;
+  background: #F0F2F5;
     // background-image: url('./assets/bg/bg-9.jpg');
     // background-size: cover;
     .bg-content {
       background: rgba(255, 255, 255, 1);
     }
+  .my-mt {
+    // position: absolute;
+    // top: 4rem;
+    // left: 0;
+    // right: 0;
+    // bottom: 0;
+    margin-top: 2.2rem;
+  }
+  .my-pt {
+    padding-top: 2rem;
+  }
   .fade-enter-active, .fade-leave-active {
     transition: opacity 2s;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-3 col-12 side" id="side">
+  <div class="col-12 col-sm-12 col-md-3 side" id="side">
     <div class="col-12 side">
       <!-- tags -->
       <Tags :data="tags" v-if="$route.name !== 'detail'"></Tags>
@@ -7,10 +7,14 @@
       <top-articles :data="topArticles"></top-articles>
       <!-- 最新评论 -->
       <comment v-if="$route.name !== 'detail'"></comment>
+      <!-- 文章归档 -->
       <archive :archive="archive"></archive>
-      <a-affix :offsetTop="20" ref="affix" id="affix">
+      <!-- 目录 -->
+      <a-affix :offsetTop="10" ref="affix" id="affix">
         <toc v-bind="$attrs" v-if="$route.name === 'detail'"></toc>
       </a-affix>
+      <!-- 友链 -->
+      <friends-link :links="friendsLink" v-if="$route.name !== 'detail'"></friends-link>
     </div>
   </div>
 </template>
@@ -22,6 +26,7 @@ import TopArticles from './TopArticles'
 import Comment from './Comment'
 import Toc from './Toc.vue'
 import Archive from './Archive.vue'
+import FriendsLink from './FriendsLink.vue'
 export default {
   name: 'sidebar',
   inheritAttrs: false,
@@ -38,7 +43,8 @@ export default {
     TopArticles,
     Comment,
     Toc,
-    Archive
+    Archive,
+    FriendsLink
   },
   data () {
     return {
@@ -46,7 +52,9 @@ export default {
         // { title: '', id: 0 }
       ],
       tags: [],
-      archive: []
+      archive: [
+      ],
+      friendsLink: []
     }
   },
   created () {
@@ -66,7 +74,10 @@ export default {
           this.tags = tags
           // 置顶文章
           this.topArticles = res.data.tops
+          // 文章归档
           this.archive = res.data.archive
+          // 友链
+          this.friendsLink = res.data.friendsLink
         }
       }).catch(err => {
         console.log('err', err)
@@ -99,7 +110,7 @@ export default {
       // border-bottom: 0;
       // box-sizing: border-box;
       border: none;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.09);
     }
     .card-body {
       // border-bottom: 1px solid silver;
@@ -143,6 +154,7 @@ export default {
       padding: 10px 10px !important;
     }
     .top {
+      padding-top: 0 !important;
       ul {
         li {
           padding: 0 0 10px 10px;
@@ -192,24 +204,26 @@ export default {
         li:not(first-child) {
           padding-top: 10px;
         }
+        li:last-child {
+          border-bottom: none;
+        }
         .list-group-item {
           border: none;
         }
         .my-list {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-        }
-        .my-list:last-child {
-          border-bottom:none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.09);
         }
       }
     }
     .comment{
+      padding-top: 0 !important;
       ul {
         li {
-          padding: 0 0 10px 0;
+          padding: 0;
           display: flex;
           flex-direction: row;
           align-items: center;
+          border-bottom: 1px solid rgba(0, 0, 0, .09);
           .comment-left {
             padding: 0;
             overflow: hidden;
@@ -248,7 +262,10 @@ export default {
           }
         }
         li:not(first-child) {
-          padding-top: 10px;
+          padding: 10px 0;
+        }
+        li:last-child {
+          border-bottom: none;
         }
       }
     }

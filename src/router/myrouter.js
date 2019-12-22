@@ -19,7 +19,7 @@ let routes = [
             isNav: true,
             component: () => import(/* webpackChunkName: "index" */ '../views/Content.vue'),
             meta: {
-              title: '首页 - SHIJTING的个人博客'
+              title: "首页 - trim('嗷');"
             }
           },
           {
@@ -68,7 +68,7 @@ function getCategory () {
     success: function (res) {
       const category = res.data.category
       category.forEach(item => {
-        routes[0].children[0].children.push({ path: `/${item.id}`, name: `${item.category_name}`, isNav: true, meta: { title: `${item.category_name} - SHIJTING` }, component: () => import(/* webpackChunkName: "cate" */ '../views/Content.vue') })
+        routes[0].children[0].children.push({ path: `/${item.id}`, name: `${item.category_name}`, isNav: true, meta: { title: `${item.category_name} - trim('嗷');` }, component: () => import(/* webpackChunkName: "cate" */ '../views/Content.vue') })
       })
     }
   })

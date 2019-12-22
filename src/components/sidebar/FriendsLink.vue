@@ -1,21 +1,20 @@
 <template>
   <div class="card rounded shadow-sm mb-3 tags">
     <div class="card-header bg-content">
-      文章归档
+      友情链接
       <!-- <hr /> -->
     </div>
     <div class="card-body first-card-body">
-      <dl :style="{height: down ? '5rem': 'auto'}">
-        <dd v-for="(h, i) in archive" :key="i" @click="getArticles(h.date)">
-          <span>{{h.date}}</span>
-          <span>{{h.count}}篇</span>
+      <dl :style="{height: down ? '7rem': 'auto'}">
+        <dd @click="getArticleWithTagId(tag.id)" v-for="(link, i) in links" :key="i">
+          <a :href="link.link" target="_brank">{{link.title}}</a>
         </dd>
       </dl>
-      <dl v-if="archive.length > 3">
+      <dl v-if="links.length > 6">
         <a href="javascript:;" @click="toggleDown">
           <i class="fa" :class="[advanced ? 'fa-angle-double-up' : 'fa-angle-double-down']"></i>
             {{ advanced ? '收起' : '展开'}}
-          </a>
+        </a>
       </dl>
     </div>
   </div>
@@ -24,21 +23,19 @@
 <script>
 export default {
   props: {
-    archive: {
-      type: Array,
-      required: true
+    links: {
+      type: Array
+      // required: true
     }
   },
   data () {
     return {
-      // 展开/关闭
       advanced: false
     }
   },
   computed: {
-    // eslint-disable-next-line vue/return-in-computed-property
     down () {
-      if (this.archive.length > 3 && !this.advanced) {
+      if (this.links.length > 6 && !this.advanced) {
         return true
       }
       return false
@@ -47,11 +44,6 @@ export default {
   methods: {
     toggleDown () {
       this.advanced = !this.advanced
-    },
-    getArticles (date) {
-      // 去掉中文
-      date = date.replace(/[\u4e00-\u9fa5]/g, '')
-      this.$router.push({ name: 'archive', query: { archive: date } })
     }
   }
 }
@@ -71,33 +63,45 @@ export default {
   .card-body {
     padding: 10px 20px !important;
     dl:not(:nth-of-type(2)){
-      width: 100%;
-      overflow: hidden;
+      // width: calc(100% + 10px);
       margin: 0 !important;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: flex-start;
+      overflow: hidden;
       dd {
-        text-align: left;
+        text-align: center;
         text-indent: .6rem;
-        width: 100%;
+        width: 8rem;
         line-height: 1.3rem;
-        padding: 0 3px;
+        padding: 8px 5px;
+        margin: 0 3px;
         font-size: 14px;
-        color: rgba(0,0,0,.4);
         background-clip: content-box;
         -webkit-transition: all .5s;
         -o-transition: all .5s;
         transition: all .5s;
-        display: flex;
-        justify-content: space-between;
+        border-bottom: 1px solid rgba(0, 0, 0, .09);
+        a {
+          display: block;
+          -moz-transition: all .5s;
+          -o-transition: all .5s;
+          -webkit-transition: all .5s;
+          transition: all .5s;
+          color: rgba(0,0,0,.4);
+        }
+      }
+      // dd:last-child {
+      //   flex: 0;
+      // }
+      dd:hover>a {
+        cursor: pointer;
+        // opacity: 1;
+        color: rgba(0,0,0,.6);
       }
       dd:hover {
-        color: blue;
-        text-decoration: underline;
-        cursor: pointer;
-        opacity: 1;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
       }
     }
     dl:nth-child(2) {
@@ -119,8 +123,8 @@ export default {
       }
     }
   }
-  .first-card-body {
-    padding: 10px 10px !important;
-  }
+  // .first-card-body {
+  //   padding: 10px 10px !important;
+  // }
 }
 </style>

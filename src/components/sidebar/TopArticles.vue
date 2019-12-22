@@ -6,9 +6,9 @@
     <div class="card-body top">
       <ul class="list-group list-group-flush">
         <template>
-          <li class="list-group-item row my-list" v-for="topArticle in data" :key="topArticle.id">
+          <li class="row my-list" v-for="topArticle in data" :key="topArticle.id">
             <div class="top-left col-4">
-              <img class="thumbnail" v-if="topArticle.cover" :src="topArticle.cover" alt="">
+              <img class="thumbnail rounded" v-if="topArticle.cover" :src="topArticle.cover" alt="">
               <img class="thumbnail" v-else src="https://image.twho.top/default.jpg" alt="">
             </div>
             <div class="top-right col-8">

@@ -33,9 +33,9 @@
           </div>
         </div>
       </template>
-      <div class="loading">
+      <div class="loading" style="color: #6c757d;">
         <p v-show="loading"><i class="fa fa-spinner fa-spin"></i> 数据载入中...</p>
-        <p v-show="disabled">总得有个结尾吧</p>
+        <p v-show="disabled">Σ(っ °Д °;)っ总得有个结尾吧</p>
       </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
       disabled: false, // 是否全部加载完成(为true时显示 没有更多了)
       i: 0,
       pageNo: 1, // 当前页
-      pageSize: 8 // 每页显示记录数
+      pageSize: 10 // 每页显示记录数
     }
   },
   watch: {
@@ -70,10 +70,22 @@ export default {
     this.loadMore = debounce(this.fetchDate, 1000)
   },
   mounted () {
+    // this.windowWidth = window.screen.width
+    // this.navMain = document.getElementById('nav-main')
+    // this.myNavbar = document.getElementById('my-navbar')
     // 监听浏览器滚动条
     window.addEventListener('scroll', this.scroll)
   },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.scroll)
+    console.log('Destroy')
+  },
   computed: {
+    handlerScrollNav () {
+      const navMain = document.getElementById('nav-main')
+      console.log('123', navMain)
+      return true
+    }
   },
   methods: {
     // 路由发生变化时初始化数据
@@ -90,15 +102,42 @@ export default {
       this.articles = []
     },
     scroll () {
-      let scroll = this.getScrollTop() + this.getWindowHeight() - this.getScrollHeight()
-      // console.log(scroll)
+      let scrollTop = this.getScrollTop()
+      // const navMain = this.navMain
+      // const myNavbar = this.myNavbar
+      // console.log('scroll', scrollTop)
+      // if (this.windowWidth >= 768) { // 如果不是移动端，则fixed导航菜单
+      //   if (scrollTop >= 56) {
+      //     console.log('123', navMain)
+      //     navMain.classList.add('nav-fixed')
+      //     setTimeout(() => {
+      //       navMain.style.height = '3.3rem'
+      //       navMain.style.lineHeight = '3.3rem'
+      //       myNavbar.style.height = '3.3rem'
+      //       myNavbar.style.lineHeight = '3.3rem'
+      //       console.log('settimeout')
+      //     }, 10)
+      //   } else {
+      //     navMain.classList.remove('nav-fixed')
+      //     setTimeout(() => {
+      //       navMain.style.height = '3.5rem'
+      //       navMain.style.lineHeight = '3.5rem'
+      //       myNavbar.style.height = '3.5rem'
+      //       myNavbar.style.lineHeight = '3.5rem'
+      //       console.log('settimeout')
+      //     }, 10)
+      //   }
+      // }
+      // 滚动到底部时加载更多
+      let scroll = scrollTop + this.getWindowHeight() - this.getScrollHeight()
+      console.log('scroll')
       if (scroll > -30 && scroll < -10) { // 滚动到底部了， 异步获取后端数据
         // console.log('loading', this.loading, 'disabled', this.disabled)
         if (!this.loading && !this.disabled) { // 防止反复出现请求接口(必须在本次请求结束后才能进行下次请求)
           // 显示加载中
           this.loading = true
           this.loadMore('scroll')
-          // console.log('滚动到底部，触发数据交互')
+          console.log('滚动到底部，触发数据交互')
         }
       }
     },
@@ -167,7 +206,7 @@ export default {
         // }, 100)
         if (res.status === 0) {
           const articles = res.data.articles
-          document.title = `${articles[0].category_name} - SHIJTING`
+          document.title = `${articles[0].category_name} - trim('嗷');`
           this.articles = this.articles.concat(articles)
           if (this.pageNo >= parseInt(res.data.totalPage)) { // 全部数据加载完毕，显示 没有更多了
             this.disabled = true
@@ -187,9 +226,9 @@ export default {
       getAritcleWithArchiveId({ id: id, pageNo: this.pageNo, pageSize: this.pageSize }).then(res => {
         if (res.status === 0) {
           const articles = res.data.articles
-          document.title = `2019年11月 - SHIJTING`
+          document.title = `${this.$route.query.archive}- trim('嗷');`
           this.articles = this.articles.concat(articles)
-          console.log('?archive?', this.pageNo, res.data.totalPage)
+          // console.log('?archive?', this.pageNo, res.data.totalPage)
           if (this.pageNo >= parseInt(res.data.totalPage)) { // 全部数据加载完毕，显示 没有更多了
             this.disabled = true
           }
@@ -267,7 +306,8 @@ export default {
     font-weight: 500;
     line-height: 1.5rem;
     // color: #2e3641;
-    color: rgba(0, 0, 0, 0.65);
+    // color: rgba(0, 0, 0, 0.65);
+    color: #636B6F;
     word-break:break-all;//强制换行
     text-overflow:ellipsis;//显示为省略号
     display:-webkit-box;
@@ -370,6 +410,7 @@ export default {
 @media screen and(max-width: 768px) {
   .content {
     font-size: .9rem;
+    margin-bottom: .5rem !important;
     .card-bottom {
       .card-bottom-left {
         width: 7.5rem;

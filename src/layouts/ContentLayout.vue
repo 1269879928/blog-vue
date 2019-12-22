@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-3">
-    <div class="container pt-3">
+  <div class="my-mt">
+    <div class="container">
       <div class="row">
-        <div  class="col-12 col-sm-9 home pl-0">
+        <div  class="col-12 col-sm-12 col-md-9 home pl-0">
           <router-view></router-view>
         </div>
         <Sidebar></Sidebar>

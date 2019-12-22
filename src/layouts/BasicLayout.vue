@@ -29,14 +29,21 @@ export default {
   color: #2c3e50;
   padding: 0; margin: 0;
   // background: #F3F3EF;
-  background: #EEEEEE;
+  // background: #EEEEEE;
   // background: #F0F2F5;
-  // background: rgba($color: #ffffff, $alpha: .5)
   .el-backtop {
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
     z-index: 3;
     background: rgba(255, 255, 255, .9);
     color: #384548 !important;
     border-radius: .3rem;
+  }
+  .el-backtop:hover {
+    background: rgba(255, 255, 255, .6);
+    // background: #A9B7C6;
   }
   .shade {
     // width: 100%;

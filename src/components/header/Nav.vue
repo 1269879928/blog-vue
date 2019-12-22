@@ -1,21 +1,30 @@
 <template>
-  <main class="bg-content">
+  <main class="" id="nav-main">
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-withe pl-0">
+      <nav class="navbar navbar-expand-lg navbar-light pl-0" id="my-navbar">
         <!-- <router-link class="navbar-brand" to="/">shijting</router-link> -->
         <div class="my-navbar-toggler-box">
           <span class="navbar-toggler-icon my-navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"></span>
-          <a class="navbar-brand hidden-pc" href="/">SHIJTING</a>
+          <a class="navbar-brand hidden-pc logo" href="/">
+            <!-- <section class="logo-top">{</section> -->
+            <section class="logo-main">
+              <span class="logo-tag">{-)</span>
+              <span class="logo-keyword">trim</span>
+              <span class="logo-title">('嗷')</span>
+              <span class="logo-keyword">;</span>
+            </section>
+            <!-- <section class="logo-bottom">}</section> -->
+          </a>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mt-lg-0">
-            <li class="nav-item my-2 my-lg-0" v-for="(route, index) in routes" :key="index">
+            <li class="nav-item my-lg-0" v-for="(route, index) in routes" :key="index">
               <router-link class="nav-link" :to="route.path">{{ route.name }}</router-link>
             </li>
           </ul>
-          <div class="form-inline my-2 my-lg-0 search-box" v-click-outside="close">
+          <div class="form-inline my-2 my-lg-0 search-box" v-click-outside="close" style="display: block;">
             <i class="fa search-icon" :class="{'fa-search': !toggleSearchIcon, 'fa-spinner': toggleSearchIcon, 'fa-spin': toggleSearchIcon}"></i>
-            <input class="form-control" id="search" type="mysearch" placeholder="搜索..." v-model="searchText">
+            <input class="form-control" id="search" type="mysearch" placeholder="找找看..." v-model="searchText">
             <div class="search-result" v-show="showSearchRes">
               <div class="card" style="width: 18rem;">
                 <ul class="list-group list-group-flush">
@@ -118,22 +127,34 @@ export default {
 
 <style lang="less" scoped>
 // linear-gradient(to right,  #17a2b8, #ddd,  #17a2b8)
+
 main {
-  border-top: 4px solid #185886;
-  padding: 2px 0;
-  border-top-left-radius: .4rem;
-  border-top-right-radius: .4rem;
-  border-bottom-left-radius: .1rem;
-  border-bottom-right-radius: .1rem;
+  -webkit-transition: all .5s;
+  -o-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+  // border-top: 4px solid #185886;
+  padding:0;
+  // border-top-left-radius: .3rem;
+  // border-top-right-radius: .3rem;
+  // border-bottom-left-radius: .1rem;
+  // border-bottom-right-radius: .1rem;
   box-shadow: 0 2px 10px #ccc;
-  // height: 55px;
+  // background: white;
+  // background: #3A3A3A;
+  background: #384548;
+  line-height: 3.2rem;
+  height: 3.2rem;
   // position: fixed;
   // top: 0;
   // right: 0;
   // bottom: 0;
   // left: 0;
   // margin: 0 auto;
-  // z-index: 2;
+  // z-index: 999;
+}
+.nav-fixed {
+  position: fixed;
 }
 .container {
   padding: 0;
@@ -141,26 +162,77 @@ main {
     // display: none;
   }
   nav {
-    padding: 5px 0;
+    line-height: 3.2rem;
+    height: 3.2rem;
+    padding: 0;
+    margin: 0 -0.6rem;
     .navbar-brand {
-      font-weight: 700!important;
+      margin-right: 0px;
+      font-weight: 600;
       // color: #17a2b8;
-      color: #53C1DE;
-      font-size: .98rem;
-    }
-    .router-link-exact-active {
-      // font-weight: bold;
       // color: #53C1DE;
+      // color: #00e0e0;
+      font-size: .98rem;
+      padding: 0;
+    }
+    .logo {
+      color: #fdd257;
+      text-align: left;
+      font-size: 1.1rem;
+      font-weight: 650;
+      padding-left: 5px;
+      padding-right: 5px;
+      // background: #ccc;
+      // height: 100%;
+      background-image: url('../../assets/logo_bg.png');
+      background-position: left top;
+      -webkit-transition: all .5s;
+      -o-transition: all .5s;
+      -moz-transition: all .5s;
+      transition: all .5s;
+      .logo-top {
+        margin: 0 0 -1.2rem 0;
+      }
+      .logo-main {
+        .logo-tag{
+          // color: #A9B7C6;
+        }
+        // margin-left: .35rem;
+        .logo-keyword {
+          // font-size: 1.3rem;
+          // color: #66d9ef;
+          // color: rgba(0, 0, 0, .5);
+          color: #17a2b8;
+        }
+        .logo-title {
+          // color: #629755;
+        }
+      }
+      .logo-bottom {
+        text-align: right;
+        margin: -1.2rem -0.5rem 0 0;
+      }
+    }
+    .logo:hover {
+      // background: #333;
+      background-position: right bottom;
+    }
+    .router-link-exact-active, .router-link-exact-active {
+      // font-weight: bold;
+      color: #fff;
     }
     .nav-link {
-      padding: .5rem 1rem;
+      padding: 0 1rem;
+      color: #A9B7C6;
       font-weight: 650!important;
       -webkit-transition: all .6s;
       -o-transition: all .6s;
+      -moz-transition: all .6s;
       transition: all .6s;
     }
     .nav-link:hover {
       // color: #17a2b8;
+      color: #fff;
     }
     .my-navbar-toggler-box {
       display: flex;
@@ -174,9 +246,13 @@ main {
       position: relative;
       .search-icon {
         position: absolute;
-        top: 7px;
-        // left: 10px;
-        right: 10px;
+        top: 1.3rem;
+        right: 12px;
+        // top: 0;
+        // bottom: 0;
+        // left: 0;
+        // right: 0;
+        // margin: 0 auto;
         color: rgba(0, 0, 0, .5)
       }
       .form-control:focus{
@@ -185,12 +261,14 @@ main {
         box-shadow: none;
       }
       input[type='mysearch'] {
-        height: 1.85rem;
+        // height: 1.85rem;
         border-radius: 20px;
         transition: all .5s;
         -moz-transition: all .5s;
         -webkit-transition: all .5s;
         -o-transition: all .5s;
+        padding-top: 5px;
+        padding-bottom: 5px;
         padding-right: 28px;
         font-size: .8rem;
       }
@@ -220,7 +298,7 @@ main {
       .search-result {
         // display: none;
         position: absolute;
-        top: 38px;
+        top: 3rem;
         left: 0;
         z-index: 99;
         text-align: left;
@@ -273,21 +351,38 @@ main {
           display: block !important;
           position: absolute;
           left: 1rem;
+          color: #A9B7C6 !important;
         }
+      }
+      #navbarSupportedContent {
+        position: relative;
+        z-index: 5;
+        background: #eee;
       }
       ul {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        li a{
-          text-align: left;
-          display: flex !important;
-          flex-direction: row;
+        li {
+          display: block;
+          width: 100%;
+          margin: 0;
+          padding-left: .5rem;
+          border-bottom: 1px solid #ccc;
+          a{
+            color: #444 !important;
+            text-align: left;
+            display: flex !important;
+            flex-direction: row;
+          }
+        }
+        li:last-child {
+          border-bottom: none;
         }
       }
       .search-box {
-        // display: none;
+        display: none !important;
         margin: 0 2rem;
         .search-result {
           // width: 100vw;

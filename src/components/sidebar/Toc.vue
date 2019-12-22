@@ -66,14 +66,15 @@ export default {
       ul {
         padding-left: 5px;
         li {
-          margin: 1px 0 0 -5px;
+          margin: 1px 0 1px -5px;
+          border-radius: .1rem;
           a {
             display: block;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             text-indent: 2px;
-            padding: 2px 2px 2px 8px;
+            padding: 3px 2px 3px 8px;
           }
           a:hover {
             background: #eee;
@@ -85,8 +86,9 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
         text-indent: 2px;
-        padding: 2px;
+        padding: 3px;
         display: block;
+        border-radius: .1rem;
       }
       a:hover {
         background: #eee;
