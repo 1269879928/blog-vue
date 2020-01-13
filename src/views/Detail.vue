@@ -265,8 +265,8 @@ export default {
           e.classList.add('zoom-in-pc')
           e.style.zIndex = 999
           // 打开遮罩层
-          shade.style.display = 'block'
-          // shade.classList.add('shade-zoom')
+          // shade.style.display = 'block'
+          shade.classList.add('shade-zoom')
           // console.log('shade block', shade)
           // 解决display 与opacity 一起用会导致transition 过渡失效问题
           setTimeout(() => {
@@ -299,7 +299,8 @@ export default {
           shade.style.opacity = '0'
           setTimeout(() => {
             e.style.zIndex = 0
-            shade.style.display = 'none'
+            // shade.style.display = 'none'
+            shade.classList.remove('shade-zoom')
           }, 600)
         } else {
           e.classList.remove('zoom-in-mobile')

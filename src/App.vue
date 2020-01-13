@@ -40,25 +40,13 @@ export default {
 </script>
 
 <style lang="scss">
-html {
-  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI" ,Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "NotoColor Emoji" ;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-  // 页面出现滚动条的时候让滚动条不影响页面宽度
-  overflow-y: scroll;
-  overflow-x: hidden;
-  // overflow-y:hidden;
-  // position: relative;
-}
 #app {
   // font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   // color: #2c3e50;
   color: #636b6f;
-  // padding: 0; margin: 0;
-  // background: #F3F3EF;
   // background: #EEE;
   background: #F0F2F5;
     // background-image: url('./assets/bg/bg-9.jpg');

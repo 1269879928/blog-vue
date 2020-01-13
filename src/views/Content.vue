@@ -323,7 +323,7 @@ export default {
     font-weight: normal;
     margin-right: .9rem;
     background-color: #D33632;
-    // background-color: #c0c0c0;
+    // background-color: #17a2b8;
     font-size: 12px;
     padding: 2px 9px;
     // color: rgba(0,0,0,.6);

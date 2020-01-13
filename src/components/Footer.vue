@@ -9,9 +9,8 @@
         <section class="mt-2">
           联系邮箱：1269879928@qq.com
         </section>
-        <section>
-          <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1278458530&web_id=1278458530"></script>
-        </section>
+        <!-- <section>
+        </section> -->
       </div>
     </div>
   </div>

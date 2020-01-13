@@ -139,7 +139,7 @@ main {
   // border-top-right-radius: .3rem;
   // border-bottom-left-radius: .1rem;
   // border-bottom-right-radius: .1rem;
-  box-shadow: 0 2px 10px #ccc;
+  box-shadow: 0 2px 10px #999;
   // background: white;
   // background: #3A3A3A;
   background: #384548;
@@ -261,8 +261,8 @@ main {
         box-shadow: none;
       }
       input[type='mysearch'] {
-        // height: 1.85rem;
-        border-radius: 20px;
+        // border-radius: 20px;
+        border-radius: 5px;
         transition: all .5s;
         -moz-transition: all .5s;
         -webkit-transition: all .5s;
@@ -271,6 +271,7 @@ main {
         padding-bottom: 5px;
         padding-right: 28px;
         font-size: .8rem;
+        background: #E9E9E9;
       }
       input[type='mysearch']:focus {
         border-color: #17a2b8;
